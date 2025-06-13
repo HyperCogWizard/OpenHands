@@ -1,0 +1,582 @@
+---
+title: Comprehensive Architecture Overview
+---
+
+# OpenHands Comprehensive Architecture Documentation
+
+This document provides a comprehensive view of OpenHands architecture through multiple Mermaid diagrams that illustrate the cognitive flowcharts, recursive system patterns, and emergent architectural components.
+
+## High-Level System Overview
+
+The OpenHands system represents a distributed cognitive architecture with recursive pattern encoding and neural-symbolic integration points. The system enables emergent agent behavior through hypergraph-centric communication patterns.
+
+```mermaid
+graph TD
+    %% Core Cognitive Components
+    User["👤 User"] --> Frontend["🖥️ Frontend<br/>(React/WebSocket)"]
+    Frontend --> Server["🏢 Server<br/>(FastAPI/Session Manager)"]
+    Server --> AC["🧠 Agent Controller<br/>(Cognitive Orchestrator)"]
+    
+    %% Agent Cognitive Loop
+    AC --> Agent["🤖 Agent<br/>(Decision Engine)"]
+    Agent --> LLM["💭 LLM<br/>(Reasoning Engine)"]
+    LLM --> Agent
+    
+    %% Event-Driven Communication Backbone
+    AC --> ES["⚡ EventStream<br/>(Neural Communication Hub)"]
+    ES --> Runtime["🔧 Runtime<br/>(Execution Environment)"]
+    ES --> Memory["🧮 Memory<br/>(Context & Recall)"]
+    ES --> Security["🛡️ Security<br/>(Analysis & Protection)"]
+    
+    %% Microagent Ecosystem
+    Memory --> MA["🔬 Microagents<br/>(Specialized Knowledge)"]
+    MA --> Repo["📚 Repository Agents"]
+    MA --> Knowledge["🎓 Knowledge Agents"]
+    
+    %% Runtime Environment
+    Runtime --> Sandbox["📦 Sandbox<br/>(Docker/E2B)"]
+    Runtime --> MCP["🔌 MCP Tools<br/>(External Integration)"]
+    
+    %% Recursive Feedback Loops
+    ES -.-> AC
+    Runtime -.-> ES
+    Memory -.-> ES
+    Security -.-> ES
+    
+    %% Adaptive Attention Mechanisms
+    AC -.-> Memory
+    Agent -.-> Memory
+    
+    classDef cognitive fill:#e1f5fe
+    classDef communication fill:#f3e5f5
+    classDef execution fill:#e8f5e8
+    classDef adaptive fill:#fff3e0
+    
+    class User,Agent,LLM,AC cognitive
+    class Frontend,Server,ES communication
+    class Runtime,Sandbox,MCP execution
+    class Memory,MA,Security adaptive
+```
+
+## Cognitive Control Flow Architecture
+
+This diagram illustrates the recursive cognitive loops and emergent decision-making patterns within OpenHands:
+
+```mermaid
+flowchart TB
+    subgraph "Cognitive Processing Layer"
+        UC[User Communication] --> SP[State Perception]
+        SP --> AR[Action Reasoning]
+        AR --> EG[Execution Generation]
+        EG --> OR[Observation Reception]
+        OR --> SU[State Update]
+        SU --> SP
+    end
+    
+    subgraph "Agent Cognitive Core"
+        direction TB
+        AS[Agent State] --> PG[Prompt Generation]
+        PG --> LLM[LLM Processing]
+        LLM --> AP[Action Parsing]
+        AP --> AV[Action Validation]
+        AV --> AS
+    end
+    
+    subgraph "Memory & Context Management"
+        direction LR
+        STM[Short-term Memory] --> LTM[Long-term Memory]
+        LTM --> CTX[Context Synthesis]
+        CTX --> STM
+        CTX --> MC[Memory Condensation]
+        MC --> CTX
+    end
+    
+    subgraph "Emergent Behavior Patterns"
+        direction TB
+        PP[Pattern Perception] --> LS[Learning Synthesis]
+        LS --> AB[Adaptive Behavior]
+        AB --> ER[Emergent Response]
+        ER --> PP
+    end
+    
+    %% Inter-layer connections
+    AR --> PG
+    AP --> EG
+    OR --> STM
+    SU --> CTX
+    AB --> AR
+    ER --> SP
+    
+    classDef cognitive fill:#e3f2fd
+    classDef memory fill:#f1f8e9
+    classDef emergent fill:#fce4ec
+    
+    class UC,SP,AR,EG,OR,SU,AS,PG,LLM,AP,AV cognitive
+    class STM,LTM,CTX,MC memory
+    class PP,LS,AB,ER emergent
+```
+
+## Event-Driven Neural Communication Architecture
+
+The EventStream serves as the neural backbone enabling distributed cognition across all system components:
+
+```mermaid
+graph LR
+    subgraph "Event Sources"
+        AC[Agent Controller]
+        RT[Runtime]
+        FE[Frontend]
+        ME[Memory]
+        SE[Security]
+    end
+    
+    subgraph "EventStream Core"
+        direction TB
+        ES[EventStream Hub]
+        ES --> EQ[Event Queue]
+        EQ --> EP[Event Processing]
+        EP --> ED[Event Distribution]
+        ED --> ES
+    end
+    
+    subgraph "Event Types"
+        direction TB
+        ACT[Actions]
+        OBS[Observations]
+        SYS[System Events]
+        MEM[Memory Events]
+        SEC[Security Events]
+    end
+    
+    subgraph "Subscribers"
+        AC2[Agent Controller]
+        RT2[Runtime]
+        ME2[Memory]
+        SE2[Security Analyzer]
+        RS[Resolver]
+    end
+    
+    %% Event flow patterns
+    AC --> ES
+    RT --> ES
+    FE --> ES
+    ME --> ES
+    SE --> ES
+    
+    ES --> ACT
+    ES --> OBS
+    ES --> SYS
+    ES --> MEM
+    ES --> SEC
+    
+    ACT --> AC2
+    OBS --> AC2
+    SYS --> RT2
+    MEM --> ME2
+    SEC --> SE2
+    ACT --> RT2
+    
+    %% Recursive feedback loops
+    AC2 -.-> ES
+    RT2 -.-> ES
+    ME2 -.-> ES
+    SE2 -.-> ES
+    
+    classDef source fill:#e8f5e8
+    classDef stream fill:#e1f5fe
+    classDef types fill:#fff3e0
+    classDef subscribers fill:#f3e5f5
+    
+    class AC,RT,FE,ME,SE source
+    class ES,EQ,EP,ED stream
+    class ACT,OBS,SYS,MEM,SEC types
+    class AC2,RT2,ME2,SE2,RS subscribers
+```
+
+## Microagent Knowledge Network
+
+This diagram shows the distributed knowledge architecture and cognitive synergy patterns:
+
+```mermaid
+graph TB
+    subgraph "Global Microagent Ecosystem"
+        direction TB
+        GMA[Global Microagents Directory]
+        GMA --> RepoAgents[Repository Microagents]
+        GMA --> KnowledgeAgents[Knowledge Microagents]
+        GMA --> SpecializedAgents[Specialized Microagents]
+    end
+    
+    subgraph "Repository Intelligence"
+        direction LR
+        RepoAgents --> RepoInstructions[Repository Instructions]
+        RepoAgents --> CodeAnalysis[Code Analysis]
+        RepoAgents --> ProjectContext[Project Context]
+        RepoAgents --> MCPTools[MCP Tool Configs]
+    end
+    
+    subgraph "Knowledge Synthesis"
+        direction TB
+        KnowledgeAgents --> DomainKnowledge[Domain Knowledge]
+        KnowledgeAgents --> PatternRecognition[Pattern Recognition]
+        KnowledgeAgents --> AdaptiveLearning[Adaptive Learning]
+    end
+    
+    subgraph "Memory Integration"
+        direction LR
+        Memory[Memory System] --> WorkspaceContext[Workspace Context]
+        Memory --> ConversationHistory[Conversation History]
+        Memory --> MicroagentKnowledge[Microagent Knowledge]
+    end
+    
+    subgraph "Cognitive Recall Mechanisms"
+        direction TB
+        RecallAction[Recall Action] --> QueryProcessing[Query Processing]
+        QueryProcessing --> KnowledgeRetrieval[Knowledge Retrieval]
+        KnowledgeRetrieval --> ContextSynthesis[Context Synthesis]
+        ContextSynthesis --> RecallObservation[Recall Observation]
+    end
+    
+    %% Interconnections
+    RepoInstructions --> WorkspaceContext
+    DomainKnowledge --> MicroagentKnowledge
+    MCPTools --> Memory
+    
+    WorkspaceContext --> QueryProcessing
+    MicroagentKnowledge --> KnowledgeRetrieval
+    ConversationHistory --> ContextSynthesis
+    
+    %% Recursive learning loops
+    RecallObservation -.-> AdaptiveLearning
+    PatternRecognition -.-> CodeAnalysis
+    
+    classDef microagent fill:#e8f5e8
+    classDef knowledge fill:#e1f5fe
+    classDef memory fill:#fff3e0
+    classDef recall fill:#f3e5f5
+    
+    class GMA,RepoAgents,KnowledgeAgents,SpecializedAgents microagent
+    class DomainKnowledge,PatternRecognition,AdaptiveLearning,RepoInstructions,CodeAnalysis,ProjectContext knowledge
+    class Memory,WorkspaceContext,ConversationHistory,MicroagentKnowledge memory
+    class RecallAction,QueryProcessing,KnowledgeRetrieval,ContextSynthesis,RecallObservation recall
+```
+
+## Runtime Execution Architecture
+
+This diagram illustrates the multi-layered runtime environment with adaptive execution patterns:
+
+```mermaid
+graph TB
+    subgraph "Runtime Orchestration Layer"
+        direction TB
+        RuntimeManager[Runtime Manager]
+        RuntimeManager --> RuntimeSelection[Runtime Selection]
+        RuntimeSelection --> RuntimeInitialization[Runtime Initialization]
+        RuntimeInitialization --> RuntimeExecution[Runtime Execution]
+        RuntimeExecution --> RuntimeMonitoring[Runtime Monitoring]
+        RuntimeMonitoring --> RuntimeManager
+    end
+    
+    subgraph "Execution Environments"
+        direction LR
+        DockerRuntime[Docker Runtime]
+        E2BRuntime[E2B Sandbox Runtime]
+        LocalRuntime[Local Runtime]
+        CloudRuntime[Cloud Runtime]
+    end
+    
+    subgraph "Action Execution Pipeline"
+        direction TB
+        ActionReceived[Action Received]
+        ActionReceived --> ActionValidation[Action Validation]
+        ActionValidation --> SecurityCheck[Security Analysis]
+        SecurityCheck --> ExecutionDispatch[Execution Dispatch]
+        ExecutionDispatch --> ObservationGeneration[Observation Generation]
+        ObservationGeneration --> ResultReturn[Result Return]
+    end
+    
+    subgraph "Tool Integration Layer"
+        direction LR
+        BashTools[Bash/Terminal Tools]
+        FileTools[File Operation Tools]
+        BrowserTools[Browser Automation Tools]
+        MCPTools[MCP External Tools]
+        CustomTools[Custom Tool Plugins]
+    end
+    
+    subgraph "Security & Monitoring"
+        direction TB
+        SecurityAnalyzer[Security Analyzer]
+        SecurityAnalyzer --> ThreatDetection[Threat Detection]
+        ThreatDetection --> RiskAssessment[Risk Assessment]
+        RiskAssessment --> ActionFiltering[Action Filtering]
+        ActionFiltering --> SecurityAnalyzer
+    end
+    
+    %% Connections
+    RuntimeSelection --> DockerRuntime
+    RuntimeSelection --> E2BRuntime
+    RuntimeSelection --> LocalRuntime
+    RuntimeSelection --> CloudRuntime
+    
+    ExecutionDispatch --> BashTools
+    ExecutionDispatch --> FileTools
+    ExecutionDispatch --> BrowserTools
+    ExecutionDispatch --> MCPTools
+    ExecutionDispatch --> CustomTools
+    
+    SecurityCheck --> SecurityAnalyzer
+    ActionFiltering --> ExecutionDispatch
+    
+    %% Recursive monitoring
+    RuntimeMonitoring -.-> SecurityAnalyzer
+    ObservationGeneration -.-> RuntimeMonitoring
+    
+    classDef orchestration fill:#e1f5fe
+    classDef environment fill:#e8f5e8
+    classDef pipeline fill:#fff3e0
+    classDef tools fill:#f3e5f5
+    classDef security fill:#ffebee
+    
+    class RuntimeManager,RuntimeSelection,RuntimeInitialization,RuntimeExecution,RuntimeMonitoring orchestration
+    class DockerRuntime,E2BRuntime,LocalRuntime,CloudRuntime environment
+    class ActionReceived,ActionValidation,SecurityCheck,ExecutionDispatch,ObservationGeneration,ResultReturn pipeline
+    class BashTools,FileTools,BrowserTools,MCPTools,CustomTools tools
+    class SecurityAnalyzer,ThreatDetection,RiskAssessment,ActionFiltering security
+```
+
+## Sequence Diagram: Complete Agent Interaction Flow
+
+This sequence diagram shows the temporal flow of cognitive processing and recursive interaction patterns:
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant F as Frontend
+    participant S as Server
+    participant AC as AgentController
+    participant A as Agent
+    participant LLM as LLM
+    participant ES as EventStream
+    participant M as Memory
+    participant R as Runtime
+    participant MA as Microagents
+    
+    Note over U,MA: Cognitive Initialization Phase
+    U->>F: Initial Query/Task
+    F->>S: WebSocket Message
+    S->>AC: Session Creation
+    AC->>M: Initialize Memory Context
+    M->>MA: Load Microagents
+    MA-->>M: Repository & Knowledge Context
+    M-->>AC: Context Ready
+    
+    Note over U,MA: Recursive Cognitive Processing Loop
+    loop Agent Cognitive Cycle
+        AC->>A: Generate Next Action
+        A->>M: Recall Context (if needed)
+        M-->>A: Relevant Context
+        A->>A: State Analysis
+        A->>LLM: Generate Prompt
+        LLM-->>A: Response
+        A->>A: Parse Response to Action
+        A->>AC: Action Generated
+        AC->>ES: Publish Action Event
+        
+        Note over ES,R: Event Distribution & Execution
+        ES->>R: Route Action for Execution
+        R->>R: Security Validation
+        R->>R: Execute Action
+        R->>ES: Publish Observation
+        ES->>AC: Deliver Observation
+        ES->>M: Store in Context
+        
+        AC->>AC: Update Agent State
+        AC->>F: Progress Update
+        F->>U: Display Results
+        
+        Note over AC,MA: Adaptive Learning Integration
+        AC->>M: Context Analysis
+        M->>MA: Pattern Learning
+        MA-->>M: Updated Knowledge
+    end
+    
+    Note over U,MA: Task Completion & Knowledge Synthesis
+    AC->>A: Task Assessment
+    A-->>AC: Task Complete Signal
+    AC->>M: Final Context Storage
+    M->>MA: Knowledge Integration
+    AC->>F: Final Results
+    F->>U: Task Completion
+```
+
+## State Management & Memory Architecture
+
+This diagram shows the recursive state management and memory condensation patterns:
+
+```mermaid
+stateDiagram-v2
+    [*] --> AgentInitialized
+    
+    state "Agent Cognitive States" as AgentStates {
+        AgentInitialized --> Thinking
+        Thinking --> ActionGeneration
+        ActionGeneration --> AwaitingExecution
+        AwaitingExecution --> ProcessingObservation
+        ProcessingObservation --> Thinking
+        
+        state "Memory States" as MemoryStates {
+            [*] --> ShortTermActive
+            ShortTermActive --> ContextFull
+            ContextFull --> Condensing
+            Condensing --> CondensedContext
+            CondensedContext --> ShortTermActive
+        }
+        
+        Thinking --> MemoryStates
+        ProcessingObservation --> MemoryStates
+    }
+    
+    state "Runtime States" as RuntimeStates {
+        [*] --> RuntimeReady
+        RuntimeReady --> ExecutingAction
+        ExecutingAction --> GeneratingObservation
+        GeneratingObservation --> RuntimeReady
+        
+        ExecutingAction --> SecurityChecking
+        SecurityChecking --> ExecutingAction : Safe
+        SecurityChecking --> ActionBlocked : Unsafe
+        ActionBlocked --> RuntimeReady
+    }
+    
+    state "Session States" as SessionStates {
+        [*] --> SessionActive
+        SessionActive --> TaskInProgress
+        TaskInProgress --> AgentStuck : Loop Detected
+        TaskInProgress --> TaskCompleted : Success
+        TaskInProgress --> TaskFailed : Error
+        AgentStuck --> TaskInProgress : Recovery
+        TaskCompleted --> [*]
+        TaskFailed --> [*]
+    }
+    
+    ActionGeneration --> RuntimeStates
+    RuntimeStates --> ProcessingObservation
+    
+    AgentStates --> SessionStates
+    SessionStates --> AgentStates : Continue
+```
+
+## Adaptive Attention Allocation Mechanisms
+
+This diagram illustrates the cognitive synergy optimizations and emergent attention patterns:
+
+```mermaid
+graph TB
+    subgraph "Attention Control System"
+        direction TB
+        AttentionController[Attention Controller]
+        AttentionController --> ContextPrioritization[Context Prioritization]
+        ContextPrioritization --> RelevanceScoring[Relevance Scoring]
+        RelevanceScoring --> AttentionWeighting[Attention Weighting]
+        AttentionWeighting --> AttentionController
+    end
+    
+    subgraph "Multi-Scale Context Analysis"
+        direction LR
+        GlobalContext[Global Task Context]
+        LocalContext[Local Step Context]
+        HistoricalContext[Historical Pattern Context]
+        EmergentContext[Emergent Behavior Context]
+    end
+    
+    subgraph "Cognitive Resource Allocation"
+        direction TB
+        ProcessingCapacity[Processing Capacity]
+        ProcessingCapacity --> MemoryAllocation[Memory Allocation]
+        ProcessingCapacity --> ComputeAllocation[Compute Allocation]
+        ProcessingCapacity --> AttentionBandwidth[Attention Bandwidth]
+        
+        MemoryAllocation --> ShortTermFocus[Short-term Focus]
+        MemoryAllocation --> LongTermRetention[Long-term Retention]
+        
+        ComputeAllocation --> ReasoningDepth[Reasoning Depth]
+        ComputeAllocation --> ResponseSpeed[Response Speed]
+        
+        AttentionBandwidth --> ParallelProcessing[Parallel Processing]
+        AttentionBandwidth --> SequentialDepth[Sequential Depth]
+    end
+    
+    subgraph "Adaptive Learning Feedback"
+        direction TB
+        PerformanceMonitoring[Performance Monitoring]
+        PerformanceMonitoring --> SuccessPatterns[Success Patterns]
+        PerformanceMonitoring --> FailureAnalysis[Failure Analysis]
+        
+        SuccessPatterns --> StrategyReinforcement[Strategy Reinforcement]
+        FailureAnalysis --> StrategyAdaptation[Strategy Adaptation]
+        
+        StrategyReinforcement --> CognitiveUpdates[Cognitive Updates]
+        StrategyAdaptation --> CognitiveUpdates
+        CognitiveUpdates --> PerformanceMonitoring
+    end
+    
+    %% Interconnections
+    ContextPrioritization --> GlobalContext
+    ContextPrioritization --> LocalContext
+    ContextPrioritization --> HistoricalContext
+    ContextPrioritization --> EmergentContext
+    
+    RelevanceScoring --> ProcessingCapacity
+    AttentionWeighting --> MemoryAllocation
+    AttentionWeighting --> ComputeAllocation
+    
+    %% Feedback loops
+    CognitiveUpdates -.-> AttentionController
+    ShortTermFocus -.-> RelevanceScoring
+    SuccessPatterns -.-> ContextPrioritization
+    
+    classDef attention fill:#e3f2fd
+    classDef context fill:#e8f5e8
+    classDef resource fill:#fff3e0
+    classDef learning fill:#f3e5f5
+    
+    class AttentionController,ContextPrioritization,RelevanceScoring,AttentionWeighting attention
+    class GlobalContext,LocalContext,HistoricalContext,EmergentContext context
+    class ProcessingCapacity,MemoryAllocation,ComputeAllocation,AttentionBandwidth,ShortTermFocus,LongTermRetention,ReasoningDepth,ResponseSpeed,ParallelProcessing,SequentialDepth resource
+    class PerformanceMonitoring,SuccessPatterns,FailureAnalysis,StrategyReinforcement,StrategyAdaptation,CognitiveUpdates learning
+```
+
+---
+
+## Architecture Annotations
+
+### Recursive Implementation Pathways
+
+1. **Event-Driven Recursion**: The EventStream creates recursive communication patterns where events trigger actions that generate observations, which in turn trigger new events, creating emergent behavioral loops.
+
+2. **Cognitive Feedback Loops**: The Agent-LLM-State cycle represents a recursive cognitive process where each iteration refines understanding and action generation based on accumulated context.
+
+3. **Memory Condensation Recursion**: The memory system employs recursive summarization where historical events are progressively condensed while maintaining essential context for future decision-making.
+
+4. **Adaptive Learning Recursion**: Microagents continuously update their knowledge based on interaction patterns, creating recursive improvement in system capabilities.
+
+### Transcendent Technical Precision
+
+- **Hypergraph Pattern Encoding**: Component relationships form a hypergraph where each node (component) can have multiple simultaneous connections to other nodes, enabling complex emergent behaviors.
+
+- **Neural-Symbolic Integration**: The system bridges symbolic reasoning (code execution, logical operations) with neural processing (LLM inference), creating hybrid cognitive capabilities.
+
+- **Emergent Cognitive Patterns**: The architecture enables emergent behaviors through the interaction of simple components following local rules, resulting in complex global behaviors.
+
+- **Distributed Cognition**: Knowledge and processing are distributed across multiple components (agents, microagents, memory systems) that collaborate to achieve cognitive goals.
+
+### Cognitive Synergy Optimizations
+
+- **Attention Allocation**: Dynamic prioritization of cognitive resources based on task relevance and contextual importance.
+
+- **Context Synthesis**: Intelligent merging of multiple information sources to create coherent understanding.
+
+- **Adaptive Behavior**: System components modify their behavior based on performance feedback and environmental changes.
+
+- **Knowledge Integration**: Seamless integration of repository-specific knowledge with general domain knowledge through microagent networks.

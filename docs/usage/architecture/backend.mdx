@@ -17,7 +17,183 @@ This Overview is simplified to show the main components and their interactions. 
 
 # Backend Architecture
 
-_**Disclaimer**: The backend architecture is a work in progress and is subject to change. The following diagram shows the current architecture of the backend based on the commit that is shown in the footer of the diagram._
+_**Disclaimer**: The backend architecture is a work in progress and is subject to change. The following diagrams show the current architecture of the backend with comprehensive Mermaid visualizations._
+
+## Backend Component Architecture
+
+This diagram shows the detailed backend component structure and their interactions:
+
+```mermaid
+graph TB
+    subgraph "Server Layer"
+        direction TB
+        FastAPI[FastAPI Server]
+        FastAPI --> Routes[API Routes]
+        FastAPI --> Middleware[Middleware Stack]
+        FastAPI --> Dependencies[Dependency Injection]
+        
+        Routes --> SessionRoutes[Session Management]
+        Routes --> AgentRoutes[Agent Operations]
+        Routes --> FileRoutes[File Operations]
+        Routes --> ConfigRoutes[Configuration]
+    end
+    
+    subgraph "Session Management"
+        direction TB
+        ConversationManager[Conversation Manager]
+        ConversationManager --> SessionStore[Session Store]
+        ConversationManager --> SessionCleanup[Session Cleanup]
+        
+        SessionStore --> Session[Session Instance]
+        Session --> EventStream[EventStream]
+        Session --> AgentController[Agent Controller]
+        Session --> Runtime[Runtime Instance]
+    end
+    
+    subgraph "Agent Processing Core"
+        direction TB
+        AgentController --> Agent[Agent Instance]
+        AgentController --> State[Agent State]
+        AgentController --> StuckDetector[Stuck Detection]
+        
+        Agent --> LLMClient[LLM Client]
+        Agent --> ActionParser[Action Parser]
+        Agent --> PromptBuilder[Prompt Builder]
+        
+        State --> EventHistory[Event History]
+        State --> TaskState[Task State]
+        State --> MemoryState[Memory State]
+    end
+    
+    subgraph "Event Processing System"
+        direction TB
+        EventStream --> EventStore[Event Store]
+        EventStream --> EventQueue[Event Queue]
+        EventStream --> Subscribers[Event Subscribers]
+        
+        EventStore --> FileStore[File Storage]
+        EventQueue --> AsyncProcessor[Async Processor]
+        
+        Subscribers --> MemorySubscriber[Memory]
+        Subscribers --> SecuritySubscriber[Security]
+        Subscribers --> RuntimeSubscriber[Runtime]
+    end
+    
+    subgraph "Runtime Execution"
+        direction TB
+        Runtime --> RuntimeSelector[Runtime Selector]
+        RuntimeSelector --> DockerRuntime[Docker Runtime]
+        RuntimeSelector --> E2BRuntime[E2B Runtime]
+        RuntimeSelector --> LocalRuntime[Local Runtime]
+        
+        DockerRuntime --> ActionExecutor[Action Executor]
+        E2BRuntime --> ActionExecutor
+        LocalRuntime --> ActionExecutor
+        
+        ActionExecutor --> CommandRunner[Command Runner]
+        ActionExecutor --> FileManager[File Manager]
+        ActionExecutor --> BrowserController[Browser Controller]
+    end
+    
+    %% Cross-layer connections
+    SessionRoutes --> ConversationManager
+    AgentRoutes --> AgentController
+    FileRoutes --> Runtime
+    
+    EventStream --> MemorySubscriber
+    EventStream --> SecuritySubscriber
+    EventStream --> RuntimeSubscriber
+    
+    ActionExecutor --> EventStream
+    LLMClient --> EventStream
+    
+    classDef server fill:#e3f2fd
+    classDef session fill:#e8f5e8
+    classDef agent fill:#fff3e0
+    classDef event fill:#f3e5f5
+    classDef runtime fill:#ffebee
+    
+    class FastAPI,Routes,Middleware,Dependencies,SessionRoutes,AgentRoutes,FileRoutes,ConfigRoutes server
+    class ConversationManager,SessionStore,SessionCleanup,Session,EventStream session
+    class AgentController,Agent,State,StuckDetector,LLMClient,ActionParser,PromptBuilder,EventHistory,TaskState,MemoryState agent
+    class EventStore,EventQueue,Subscribers,FileStore,AsyncProcessor,MemorySubscriber,SecuritySubscriber,RuntimeSubscriber event
+    class Runtime,RuntimeSelector,DockerRuntime,E2BRuntime,LocalRuntime,ActionExecutor,CommandRunner,FileManager,BrowserController runtime
+```
+
+## Backend Data Flow Architecture
+
+This diagram illustrates the data flow patterns and processing pipelines:
+
+```mermaid
+flowchart TD
+    subgraph "Request Processing Flow"
+        direction TB
+        ClientRequest[Client Request] --> RequestValidation[Request Validation]
+        RequestValidation --> Authentication[Authentication]
+        Authentication --> SessionLookup[Session Lookup]
+        SessionLookup --> RequestRouting[Request Routing]
+    end
+    
+    subgraph "Agent Processing Pipeline"
+        direction TB
+        TaskReceived[Task Received] --> StateAnalysis[State Analysis]
+        StateAnalysis --> ContextRetrieval[Context Retrieval]
+        ContextRetrieval --> PromptGeneration[Prompt Generation]
+        PromptGeneration --> LLMInference[LLM Inference]
+        LLMInference --> ResponseParsing[Response Parsing]
+        ResponseParsing --> ActionGeneration[Action Generation]
+    end
+    
+    subgraph "Execution Pipeline"
+        direction TB
+        ActionValidation[Action Validation] --> SecurityCheck[Security Check]
+        SecurityCheck --> RuntimeDispatch[Runtime Dispatch]
+        RuntimeDispatch --> CommandExecution[Command Execution]
+        CommandExecution --> ResultCapture[Result Capture]
+        ResultCapture --> ObservationCreation[Observation Creation]
+    end
+    
+    subgraph "Event Distribution Flow"
+        direction TB
+        EventCreation[Event Creation] --> EventSerialization[Event Serialization]
+        EventSerialization --> EventQueuing[Event Queuing]
+        EventQueuing --> SubscriberNotification[Subscriber Notification]
+        SubscriberNotification --> EventPersistence[Event Persistence]
+    end
+    
+    subgraph "Response Flow"
+        direction TB
+        ResponseAggregation[Response Aggregation] --> ResponseFormatting[Response Formatting]
+        ResponseFormatting --> ClientDelivery[Client Delivery]
+        ClientDelivery --> SessionUpdate[Session Update]
+    end
+    
+    %% Flow connections
+    RequestRouting --> TaskReceived
+    ActionGeneration --> ActionValidation
+    ObservationCreation --> EventCreation
+    EventPersistence --> ResponseAggregation
+    
+    %% Feedback loops
+    SessionUpdate -.-> StateAnalysis
+    ResultCapture -.-> ContextRetrieval
+    
+    classDef request fill:#e3f2fd
+    classDef agent fill:#e8f5e8
+    classDef execution fill:#fff3e0
+    classDef event fill:#f3e5f5
+    classDef response fill:#ffebee
+    
+    class ClientRequest,RequestValidation,Authentication,SessionLookup,RequestRouting request
+    class TaskReceived,StateAnalysis,ContextRetrieval,PromptGeneration,LLMInference,ResponseParsing,ActionGeneration agent
+    class ActionValidation,SecurityCheck,RuntimeDispatch,CommandExecution,ResultCapture,ObservationCreation execution
+    class EventCreation,EventSerialization,EventQueuing,SubscriberNotification,EventPersistence event
+    class ResponseAggregation,ResponseFormatting,ClientDelivery,SessionUpdate response
+```
+
+## Legacy Architecture Reference
+
+For comparison with the legacy PlantUML diagrams, the original backend architecture diagram is available at:
 
 ![backend_architecture.svg](/static/img/backend_architecture.svg)
 
