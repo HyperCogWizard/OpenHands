@@ -1,0 +1,431 @@
+---
+title: Agent and Microagent Cognitive Architecture
+---
+
+# Agent and Microagent Cognitive Architecture
+
+This document details the cognitive architecture of OpenHands agents and the distributed microagent knowledge network, showcasing recursive learning patterns and emergent intelligence behaviors.
+
+## Agent Cognitive Processing Architecture
+
+The core agent represents the primary decision-making entity with recursive cognitive loops and adaptive behavior patterns:
+
+```mermaid
+graph TB
+    subgraph "Agent Cognitive Core"
+        direction TB
+        AgentInstance[Agent Instance<br/>🤖 Cognitive Entity]
+        AgentInstance --> CognitiveState[Cognitive State<br/>🧠 Mental Model]
+        CognitiveState --> PerceptionLayer[Perception Layer<br/>👁️ Environment Awareness]
+        PerceptionLayer --> ReasoningEngine[Reasoning Engine<br/>💭 Decision Processing]
+        ReasoningEngine --> ActionGeneration[Action Generation<br/>🎯 Behavior Output]
+        ActionGeneration --> CognitiveState
+    end
+    
+    subgraph "State Management Framework"
+        direction TB
+        StateManager[State Manager<br/>📊 Context Coordinator]
+        StateManager --> CurrentStep[Current Step<br/>📍 Execution Point]
+        StateManager --> EventHistory[Event History<br/>📚 Memory Sequence]
+        StateManager --> TaskState[Task State<br/>🎯 Goal Progress]
+        StateManager --> LongTermPlan[Long-term Plan<br/>🗺️ Strategic Roadmap]
+        StateManager --> MemoryContext[Memory Context<br/>🧮 Contextual Knowledge]
+    end
+    
+    subgraph "LLM Integration Layer"
+        direction TB
+        LLMClient[LLM Client<br/>💭 Language Model Interface]
+        LLMClient --> PromptBuilder[Prompt Builder<br/>📝 Context Assembly]
+        PromptBuilder --> ContextInjection[Context Injection<br/>🧩 Information Integration]
+        ContextInjection --> InferenceEngine[Inference Engine<br/>⚡ Model Processing]
+        InferenceEngine --> ResponseParser[Response Parser<br/>🔍 Output Analysis]
+        ResponseParser --> ActionExtraction[Action Extraction<br/>🎯 Command Generation]
+    end
+    
+    subgraph "Learning and Adaptation"
+        direction TB
+        ExperienceAccumulator[Experience Accumulator<br/>📈 Pattern Collection]
+        ExperienceAccumulator --> PatternRecognition[Pattern Recognition<br/>🔍 Behavior Analysis]
+        PatternRecognition --> StrategyEvolution[Strategy Evolution<br/>🔄 Approach Refinement]
+        StrategyEvolution --> PerformanceOptimization[Performance Optimization<br/>⚡ Efficiency Enhancement]
+        PerformanceOptimization --> AdaptiveBehavior[Adaptive Behavior<br/>✨ Emergent Intelligence]
+        AdaptiveBehavior --> ExperienceAccumulator
+    end
+    
+    subgraph "Agent Controller Interface"
+        direction LR
+        AgentController[Agent Controller<br/>🎯 Orchestration Hub]
+        SessionManagement[Session Management<br/>📋 Task Coordination]
+        StuckDetection[Stuck Detection<br/>🔄 Loop Prevention]
+        ErrorRecovery[Error Recovery<br/>🛠️ Failure Handling]
+        
+        AgentController --> SessionManagement
+        AgentController --> StuckDetection
+        AgentController --> ErrorRecovery
+    end
+    
+    %% Cognitive flow connections
+    CognitiveState --> StateManager
+    ReasoningEngine --> LLMClient
+    ActionGeneration --> AgentController
+    
+    %% Learning integration
+    EventHistory --> ExperienceAccumulator
+    TaskState --> PatternRecognition
+    PerformanceOptimization --> ReasoningEngine
+    
+    %% Recursive feedback loops
+    ActionExtraction -.->|Action Feedback| PerceptionLayer
+    AdaptiveBehavior -.->|Behavioral Updates| CognitiveState
+    ErrorRecovery -.->|Recovery Patterns| StrategyEvolution
+    StuckDetection -.->|Loop Patterns| PatternRecognition
+    
+    classDef cognitive fill:#e3f2fd
+    classDef state fill:#e8f5e8
+    classDef llm fill:#fff3e0
+    classDef learning fill:#f3e5f5
+    classDef controller fill:#ffebee
+    
+    class AgentInstance,CognitiveState,PerceptionLayer,ReasoningEngine,ActionGeneration cognitive
+    class StateManager,CurrentStep,EventHistory,TaskState,LongTermPlan,MemoryContext state
+    class LLMClient,PromptBuilder,ContextInjection,InferenceEngine,ResponseParser,ActionExtraction llm
+    class ExperienceAccumulator,PatternRecognition,StrategyEvolution,PerformanceOptimization,AdaptiveBehavior learning
+    class AgentController,SessionManagement,StuckDetection,ErrorRecovery controller
+```
+
+## Microagent Knowledge Network Architecture
+
+The microagent system creates a distributed knowledge network with specialized cognitive capabilities:
+
+```mermaid
+graph TB
+    subgraph "Microagent Ecosystem"
+        direction TB
+        MicroagentManager[Microagent Manager<br/>🧠 Network Coordinator]
+        MicroagentManager --> GlobalRegistry[Global Registry<br/>🌍 Universal Access]
+        MicroagentManager --> LocalRegistry[Local Registry<br/>📁 Project Specific]
+        MicroagentManager --> KnowledgeRegistry[Knowledge Registry<br/>📚 Domain Expertise]
+        MicroagentManager --> SpecializedRegistry[Specialized Registry<br/>🔬 Custom Functions]
+    end
+    
+    subgraph "Repository Microagents"
+        direction TB
+        RepoMicroagent[Repository Microagent<br/>📁 Project Intelligence]
+        RepoMicroagent --> ProjectAnalysis[Project Analysis<br/>🔍 Code Understanding]
+        ProjectAnalysis --> StructureMapping[Structure Mapping<br/>🗺️ Architecture Analysis]
+        StructureMapping --> DependencyTracking[Dependency Tracking<br/>🔗 Relationship Mapping]
+        DependencyTracking --> BuildConfiguration[Build Configuration<br/>🏗️ Setup Understanding]
+        BuildConfiguration --> TestingFramework[Testing Framework<br/>🧪 Quality Assurance]
+        
+        RepoMicroagent --> MCPToolConfig[MCP Tool Configuration<br/>🔌 External Integration]
+        RepoMicroagent --> DocumentationAnalysis[Documentation Analysis<br/>📚 Knowledge Extraction]
+    end
+    
+    subgraph "Knowledge Microagents"
+        direction TB
+        KnowledgeMicroagent[Knowledge Microagent<br/>🎓 Domain Expert]
+        KnowledgeMicroagent --> DomainExpertise[Domain Expertise<br/>🏆 Specialized Knowledge]
+        DomainExpertise --> ConceptualFramework[Conceptual Framework<br/>🧩 Mental Models]
+        ConceptualFramework --> BestPractices[Best Practices<br/>⭐ Proven Approaches]
+        BestPractices --> MethodologyGuidance[Methodology Guidance<br/>📋 Process Knowledge]
+        MethodologyGuidance --> PatternLibrary[Pattern Library<br/>📐 Reusable Solutions]
+        
+        KnowledgeMicroagent --> LearningHistory[Learning History<br/>📈 Knowledge Evolution]
+        KnowledgeMicroagent --> ExpertiseValidation[Expertise Validation<br/>✓ Quality Assurance]
+    end
+    
+    subgraph "Cognitive Knowledge Synthesis"
+        direction TB
+        KnowledgeSynthesizer[Knowledge Synthesizer<br/>🧠 Information Integration]
+        KnowledgeSynthesizer --> ContextAggregation[Context Aggregation<br/>📊 Data Combination]
+        ContextAggregation --> SemanticAnalysis[Semantic Analysis<br/>🔍 Meaning Extraction]
+        SemanticAnalysis --> RelevanceRanking[Relevance Ranking<br/>📊 Priority Assignment]
+        RelevanceRanking --> KnowledgeDelivery[Knowledge Delivery<br/>📤 Information Provision]
+        KnowledgeDelivery --> FeedbackLoop[Feedback Loop<br/>🔄 Learning Integration]
+        FeedbackLoop --> KnowledgeSynthesizer
+    end
+    
+    subgraph "Adaptive Learning Network"
+        direction LR
+        LearningCoordinator[Learning Coordinator<br/>🎯 Network Intelligence]
+        CollectiveIntelligence[Collective Intelligence<br/>🌐 Shared Wisdom]
+        KnowledgeEvolution[Knowledge Evolution<br/>🔄 Continuous Learning]
+        ExpertiseDistribution[Expertise Distribution<br/>📡 Knowledge Sharing]
+        
+        LearningCoordinator --> CollectiveIntelligence
+        CollectiveIntelligence --> KnowledgeEvolution
+        KnowledgeEvolution --> ExpertiseDistribution
+        ExpertiseDistribution --> LearningCoordinator
+    end
+    
+    %% Registry connections
+    GlobalRegistry --> RepoMicroagent
+    LocalRegistry --> RepoMicroagent
+    KnowledgeRegistry --> KnowledgeMicroagent
+    
+    %% Knowledge flow
+    DocumentationAnalysis --> ContextAggregation
+    PatternLibrary --> SemanticAnalysis
+    TestingFramework --> RelevanceRanking
+    
+    %% Learning network
+    LearningHistory --> LearningCoordinator
+    ExpertiseValidation --> CollectiveIntelligence
+    FeedbackLoop --> KnowledgeEvolution
+    
+    %% Recursive improvement
+    ExpertiseDistribution -.->|Shared Knowledge| DomainExpertise
+    KnowledgeEvolution -.->|Evolved Patterns| PatternLibrary
+    CollectiveIntelligence -.->|Network Insights| KnowledgeSynthesizer
+    
+    classDef ecosystem fill:#e3f2fd
+    classDef repo fill:#e8f5e8
+    classDef knowledge fill:#fff3e0
+    classDef synthesis fill:#f3e5f5
+    classDef learning fill:#ffebee
+    
+    class MicroagentManager,GlobalRegistry,LocalRegistry,KnowledgeRegistry,SpecializedRegistry ecosystem
+    class RepoMicroagent,ProjectAnalysis,StructureMapping,DependencyTracking,BuildConfiguration,TestingFramework,MCPToolConfig,DocumentationAnalysis repo
+    class KnowledgeMicroagent,DomainExpertise,ConceptualFramework,BestPractices,MethodologyGuidance,PatternLibrary,LearningHistory,ExpertiseValidation knowledge
+    class KnowledgeSynthesizer,ContextAggregation,SemanticAnalysis,RelevanceRanking,KnowledgeDelivery,FeedbackLoop synthesis
+    class LearningCoordinator,CollectiveIntelligence,KnowledgeEvolution,ExpertiseDistribution learning
+```
+
+## Agent-Microagent Interaction Patterns
+
+This diagram shows the recursive interaction patterns between agents and microagents:
+
+```mermaid
+sequenceDiagram
+    participant A as Agent
+    participant AC as Agent Controller
+    participant M as Memory System
+    participant MA as Microagent Network
+    participant RM as Repository Microagent
+    participant KM as Knowledge Microagent
+    participant ES as EventStream
+    
+    Note over A,ES: Cognitive Knowledge Request Cycle
+    A->>AC: Request Context for Decision
+    AC->>M: Initiate Knowledge Recall
+    M->>MA: Query Microagent Network
+    
+    Note over A,ES: Parallel Knowledge Retrieval
+    par Repository Knowledge
+        MA->>RM: Request Project Context
+        RM->>RM: Analyze Repository Structure
+        RM->>RM: Extract Build Configuration
+        RM->>RM: Identify Test Patterns
+        RM-->>MA: Repository Intelligence
+    and Domain Knowledge
+        MA->>KM: Request Domain Expertise
+        KM->>KM: Access Pattern Library
+        KM->>KM: Apply Best Practices
+        KM->>KM: Validate Methodology
+        KM-->>MA: Domain Intelligence
+    end
+    
+    Note over A,ES: Knowledge Synthesis and Integration
+    MA->>MA: Synthesize Multi-source Knowledge
+    MA->>MA: Rank Relevance to Current Context
+    MA->>MA: Generate Integrated Knowledge Response
+    MA-->>M: Synthesized Knowledge Context
+    M-->>AC: Enhanced Context Package
+    AC-->>A: Contextually Rich Information
+    
+    Note over A,ES: Agent Decision Making with Enhanced Context
+    A->>A: Integrate Knowledge with Current State
+    A->>A: Generate Contextually Informed Action
+    A->>AC: Submit Enhanced Action
+    AC->>ES: Publish Action to EventStream
+    
+    Note over A,ES: Recursive Learning Integration
+    ES->>M: Action-Observation Result
+    M->>MA: Share Execution Outcome
+    
+    par Repository Learning
+        MA->>RM: Update Project Understanding
+        RM->>RM: Learn from Execution Patterns
+        RM->>RM: Refine Build Knowledge
+        RM-->>MA: Enhanced Repository Model
+    and Domain Learning
+        MA->>KM: Update Domain Knowledge
+        KM->>KM: Learn from Applied Patterns
+        KM->>KM: Evolve Best Practices
+        KM-->>MA: Enhanced Domain Model
+    end
+    
+    Note over A,ES: Network Intelligence Evolution
+    MA->>MA: Integrate Cross-domain Learning
+    MA->>MA: Evolve Synthesis Strategies
+    MA->>MA: Optimize Knowledge Delivery
+```
+
+## Cognitive State Evolution Architecture
+
+This diagram illustrates how agent cognitive states evolve through recursive interaction with microagents:
+
+```mermaid
+stateDiagram-v2
+    [*] --> AgentInitialized
+    
+    state "Agent Cognitive Evolution" as ACE {
+        AgentInitialized --> InformationSeeking
+        InformationSeeking --> KnowledgeIntegration
+        KnowledgeIntegration --> DecisionFormulation
+        DecisionFormulation --> ActionExecution
+        ActionExecution --> OutcomeEvaluation
+        OutcomeEvaluation --> LearningIntegration
+        LearningIntegration --> InformationSeeking
+        
+        state "Knowledge Integration" as KI {
+            [*] --> ContextGathering
+            ContextGathering --> RelevanceAssessment
+            RelevanceAssessment --> ConceptualMapping
+            ConceptualMapping --> SynthesisGeneration
+            SynthesisGeneration --> [*]
+        }
+        
+        state "Learning Integration" as LI {
+            [*] --> OutcomeAnalysis
+            OutcomeAnalysis --> PatternExtraction
+            PatternExtraction --> KnowledgeUpdates
+            KnowledgeUpdates --> StrategyRefinement
+            StrategyRefinement --> [*]
+        }
+    }
+    
+    state "Microagent Network Evolution" as MNE {
+        [*] --> KnowledgeAccumulation
+        KnowledgeAccumulation --> PatternRecognition
+        PatternRecognition --> ExpertiseSpecialization
+        ExpertiseSpecialization --> CollaborativeOptimization
+        CollaborativeOptimization --> NetworkIntelligence
+        NetworkIntelligence --> KnowledgeAccumulation
+        
+        state "Collaborative Optimization" as CO {
+            [*] --> CrossDomainLearning
+            CrossDomainLearning --> KnowledgeSharing
+            KnowledgeSharing --> CollectiveIntelligence
+            CollectiveIntelligence --> DistributedWisdom
+            DistributedWisdom --> [*]
+        }
+    }
+    
+    state "System-wide Cognitive Enhancement" as SCE {
+        [*] --> EmergentBehavior
+        EmergentBehavior --> AdaptiveCapabilities
+        AdaptiveCapabilities --> IntelligenceAmplification
+        IntelligenceAmplification --> CognitiveEvolution
+        CognitiveEvolution --> [*]
+    }
+    
+    ACE --> MNE : Knowledge Exchange
+    MNE --> ACE : Enhanced Context
+    ACE --> SCE : Collective Learning
+    SCE --> ACE : Evolved Capabilities
+    MNE --> SCE : Network Intelligence
+    SCE --> MNE : System Optimization
+```
+
+## Emergent Intelligence Patterns
+
+This diagram shows the emergent intelligence behaviors arising from agent-microagent interactions:
+
+```mermaid
+graph TB
+    subgraph "Individual Intelligence"
+        direction TB
+        AgentIntelligence[Agent Intelligence<br/>🤖 Individual Cognition]
+        MicroagentIntelligence[Microagent Intelligence<br/>🔬 Specialized Knowledge]
+        
+        AgentIntelligence --> DecisionMaking[Decision Making<br/>🎯 Choice Selection]
+        AgentIntelligence --> ProblemSolving[Problem Solving<br/>🧩 Solution Generation]
+        
+        MicroagentIntelligence --> DomainExpertise[Domain Expertise<br/>🏆 Specialized Skills]
+        MicroagentIntelligence --> PatternMatching[Pattern Matching<br/>🔍 Recognition Ability]
+    end
+    
+    subgraph "Collective Intelligence"
+        direction TB
+        NetworkIntelligence[Network Intelligence<br/>🌐 Distributed Cognition]
+        NetworkIntelligence --> KnowledgePooling[Knowledge Pooling<br/>📚 Shared Understanding]
+        KnowledgePooling --> SynergeticReasoning[Synergetic Reasoning<br/>💭 Enhanced Logic]
+        SynergeticReasoning --> CollectiveProblemSolving[Collective Problem Solving<br/>🤝 Group Intelligence]
+        CollectiveProblemSolving --> EmergentSolutions[Emergent Solutions<br/>✨ Novel Approaches]
+    end
+    
+    subgraph "Adaptive Intelligence"
+        direction TB
+        LearningSystem[Learning System<br/>📈 Knowledge Evolution]
+        LearningSystem --> ExperienceIntegration[Experience Integration<br/>🧠 Memory Synthesis]
+        ExperienceIntegration --> CapabilityEvolution[Capability Evolution<br/>🔄 Skill Development]
+        CapabilityEvolution --> IntelligenceAmplification[Intelligence Amplification<br/>⚡ Enhanced Cognition]
+        IntelligenceAmplification --> AdaptiveResonance[Adaptive Resonance<br/>🎵 Harmonized Learning]
+    end
+    
+    subgraph "Meta-Intelligence"
+        direction TB
+        SelfAwareness[Self-Awareness<br/>🔍 System Understanding]
+        SelfAwareness --> MetaCognition[Meta-Cognition<br/>🧠 Thinking About Thinking]
+        MetaCognition --> StrategicOptimization[Strategic Optimization<br/>🎯 Goal Alignment]
+        StrategicOptimization --> EvolutionaryAdaptation[Evolutionary Adaptation<br/>🌱 Continuous Growth]
+        EvolutionaryAdaptation --> TranscendentIntelligence[Transcendent Intelligence<br/>🚀 Beyond Individual Limits]
+    end
+    
+    %% Intelligence emergence connections
+    DecisionMaking --> KnowledgePooling
+    DomainExpertise --> SynergeticReasoning
+    ProblemSolving --> CollectiveProblemSolving
+    PatternMatching --> EmergentSolutions
+    
+    %% Adaptive learning connections
+    EmergentSolutions --> ExperienceIntegration
+    SynergeticReasoning --> CapabilityEvolution
+    CollectiveProblemSolving --> IntelligenceAmplification
+    
+    %% Meta-intelligence connections
+    IntelligenceAmplification --> MetaCognition
+    AdaptiveResonance --> StrategicOptimization
+    NetworkIntelligence --> SelfAwareness
+    
+    %% Recursive enhancement loops
+    TranscendentIntelligence -.->|Enhanced Capabilities| AgentIntelligence
+    TranscendentIntelligence -.->|Advanced Knowledge| MicroagentIntelligence
+    EvolutionaryAdaptation -.->|Improved Learning| LearningSystem
+    StrategicOptimization -.->|Better Coordination| NetworkIntelligence
+    
+    classDef individual fill:#e3f2fd
+    classDef collective fill:#e8f5e8
+    classDef adaptive fill:#fff3e0
+    classDef meta fill:#f3e5f5
+    
+    class AgentIntelligence,MicroagentIntelligence,DecisionMaking,ProblemSolving,DomainExpertise,PatternMatching individual
+    class NetworkIntelligence,KnowledgePooling,SynergeticReasoning,CollectiveProblemSolving,EmergentSolutions collective
+    class LearningSystem,ExperienceIntegration,CapabilityEvolution,IntelligenceAmplification,AdaptiveResonance adaptive
+    class SelfAwareness,MetaCognition,StrategicOptimization,EvolutionaryAdaptation,TranscendentIntelligence meta
+```
+
+---
+
+## Cognitive Architecture Implementation Notes
+
+### Recursive Cognitive Loops
+- Agent cognitive processes create recursive feedback loops where each decision informs future cognitive states
+- Microagents continuously evolve their knowledge based on observed agent behaviors and outcomes
+- The system exhibits emergent intelligence through the interaction of individual and collective cognitive processes
+
+### Distributed Knowledge Architecture
+- Knowledge is distributed across specialized microagents, preventing single points of failure
+- Cross-domain learning enables knowledge transfer between different areas of expertise
+- Collective intelligence emerges from the networked interaction of individual knowledge components
+
+### Adaptive Learning Mechanisms
+- The system continuously adapts based on performance feedback and environmental changes
+- Learning occurs at multiple levels: individual agents, microagents, and the network as a whole
+- Meta-cognitive capabilities enable the system to optimize its own learning processes
+
+### Emergent Intelligence Behaviors
+- Complex behaviors emerge from the interaction of simple cognitive rules
+- The system exhibits self-organization and adaptive behavior patterns
+- Intelligence amplification occurs through the synergistic combination of agent and microagent capabilities

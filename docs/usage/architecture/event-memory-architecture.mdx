@@ -1,0 +1,436 @@
+---
+title: Event System and Memory Architecture
+---
+
+# Event System and Memory Architecture
+
+This document provides detailed architectural views of OpenHands' event-driven communication system and adaptive memory mechanisms, showcasing the recursive and emergent patterns that enable distributed cognition.
+
+## EventStream Neural Communication Hub
+
+The EventStream represents the central nervous system of OpenHands, enabling distributed cognitive processing through recursive event patterns:
+
+```mermaid
+graph TB
+    subgraph "Event Source Layer"
+        direction TB
+        AgentController[Agent Controller<br/>🧠 Cognitive Commands]
+        Runtime[Runtime Systems<br/>🔧 Execution Results]
+        Frontend[Frontend Interface<br/>🖥️ User Interactions]
+        Memory[Memory System<br/>🧮 Context Requests]
+        Security[Security Analyzer<br/>🛡️ Threat Events]
+        Resolver[Resolver Service<br/>🔍 Analysis Events]
+    end
+    
+    subgraph "EventStream Core Processing"
+        direction TB
+        EventReceiver[Event Receiver<br/>📥 Input Processing]
+        EventReceiver --> EventQueue[Event Queue<br/>⚡ Async Buffer]
+        EventQueue --> EventProcessor[Event Processor<br/>⚙️ Message Routing]
+        EventProcessor --> EventDistributor[Event Distributor<br/>📤 Subscriber Delivery]
+        
+        EventDistributor --> EventPersistence[Event Persistence<br/>💾 Storage Layer]
+        EventPersistence --> FileStore[File Store<br/>📁 Conversation Data]
+    end
+    
+    subgraph "Event Type Classification"
+        direction LR
+        Actions[Actions<br/>🎯 Intent Commands]
+        Observations[Observations<br/>👁️ Environment Feedback]
+        SystemEvents[System Events<br/>⚙️ Infrastructure Messages]
+        MemoryEvents[Memory Events<br/>🧠 Context Operations]
+        SecurityEvents[Security Events<br/>🚨 Threat Notifications]
+    end
+    
+    subgraph "Subscriber Network"
+        direction TB
+        AgentSubscriber[Agent Controller<br/>🎯 Action Processing]
+        RuntimeSubscriber[Runtime<br/>⚡ Execution Handling]
+        MemorySubscriber[Memory<br/>💭 Context Management]
+        SecuritySubscriber[Security<br/>🔒 Threat Analysis]
+        ResolverSubscriber[Resolver<br/>🔍 Code Analysis]
+        ServerSubscriber[Server<br/>🌐 Client Communication]
+    end
+    
+    %% Event flow from sources
+    AgentController --> EventReceiver
+    Runtime --> EventReceiver
+    Frontend --> EventReceiver
+    Memory --> EventReceiver
+    Security --> EventReceiver
+    Resolver --> EventReceiver
+    
+    %% Event type routing
+    EventProcessor --> Actions
+    EventProcessor --> Observations
+    EventProcessor --> SystemEvents
+    EventProcessor --> MemoryEvents
+    EventProcessor --> SecurityEvents
+    
+    %% Subscriber delivery
+    Actions --> AgentSubscriber
+    Actions --> RuntimeSubscriber
+    Observations --> AgentSubscriber
+    Observations --> MemorySubscriber
+    SystemEvents --> RuntimeSubscriber
+    SystemEvents --> ServerSubscriber
+    MemoryEvents --> MemorySubscriber
+    SecurityEvents --> SecuritySubscriber
+    
+    %% Recursive feedback patterns
+    AgentSubscriber -.->|New Actions| EventReceiver
+    RuntimeSubscriber -.->|Observations| EventReceiver
+    MemorySubscriber -.->|Context Updates| EventReceiver
+    SecuritySubscriber -.->|Security Reports| EventReceiver
+    
+    classDef source fill:#e3f2fd
+    classDef core fill:#e8f5e8
+    classDef types fill:#fff3e0
+    classDef subscribers fill:#f3e5f5
+    
+    class AgentController,Runtime,Frontend,Memory,Security,Resolver source
+    class EventReceiver,EventQueue,EventProcessor,EventDistributor,EventPersistence,FileStore core
+    class Actions,Observations,SystemEvents,MemoryEvents,SecurityEvents types
+    class AgentSubscriber,RuntimeSubscriber,MemorySubscriber,SecuritySubscriber,ResolverSubscriber,ServerSubscriber subscribers
+```
+
+## Memory System Cognitive Architecture
+
+The memory system implements adaptive context management with recursive pattern learning:
+
+```mermaid
+graph TB
+    subgraph "Memory Core Components"
+        direction TB
+        MemoryManager[Memory Manager<br/>🧠 Central Coordinator]
+        MemoryManager --> ShortTermHistory[Short-term History<br/>⚡ Active Context]
+        MemoryManager --> LongTermStorage[Long-term Storage<br/>💾 Persistent Memory]
+        MemoryManager --> MemoryCondenser[Memory Condenser<br/>🗜️ Context Compression]
+        MemoryManager --> MicroagentNetwork[Microagent Network<br/>🔬 Knowledge Specialists]
+    end
+    
+    subgraph "Short-term Memory Processing"
+        direction TB
+        EventFiltering[Event Filtering<br/>🔍 Relevance Detection]
+        EventFiltering --> ContextWindow[Context Window<br/>📊 Active Events]
+        ContextWindow --> TokenLimitCheck[Token Limit Check<br/>📏 Size Validation]
+        TokenLimitCheck --> ContextSynthesis[Context Synthesis<br/>🧩 Information Integration]
+        
+        TokenLimitCheck -->|Overflow| CondensationTrigger[Condensation Trigger<br/>⚠️ Memory Pressure]
+        CondensationTrigger --> MemoryCondenser
+    end
+    
+    subgraph "Memory Condensation Pipeline"
+        direction TB
+        ChunkIdentification[Chunk Identification<br/>📦 Event Grouping]
+        ChunkIdentification --> PriorityScoring[Priority Scoring<br/>⭐ Importance Ranking]
+        PriorityScoring --> SummarizationLLM[Summarization LLM<br/>📝 Content Compression]
+        SummarizationLLM --> SummaryValidation[Summary Validation<br/>✓ Quality Check]
+        SummaryValidation --> SummaryStorage[Summary Storage<br/>💾 Compressed Context]
+    end
+    
+    subgraph "Microagent Knowledge Network"
+        direction LR
+        GlobalMicroagents[Global Microagents<br/>🌍 Universal Knowledge]
+        RepoMicroagents[Repository Microagents<br/>📁 Project Context]
+        KnowledgeMicroagents[Knowledge Microagents<br/>📚 Domain Expertise]
+        
+        GlobalMicroagents --> RepoInstructions[Repository Instructions]
+        RepoMicroagents --> ProjectContext[Project Context]
+        KnowledgeMicroagents --> DomainKnowledge[Domain Knowledge]
+        
+        RepoInstructions --> WorkspaceContext[Workspace Context]
+        ProjectContext --> WorkspaceContext
+        DomainKnowledge --> WorkspaceContext
+    end
+    
+    subgraph "Context Recall Mechanisms"
+        direction TB
+        RecallQuery[Recall Query<br/>❓ Information Request]
+        RecallQuery --> QueryAnalysis[Query Analysis<br/>🔍 Intent Understanding]
+        QueryAnalysis --> ContextSearch[Context Search<br/>🎯 Relevant Retrieval]
+        ContextSearch --> KnowledgeMatching[Knowledge Matching<br/>🧩 Pattern Recognition]
+        KnowledgeMatching --> ContextAssembly[Context Assembly<br/>🏗️ Response Construction]
+        ContextAssembly --> RecallDelivery[Recall Delivery<br/>📤 Context Provision]
+    end
+    
+    %% Memory flow connections
+    ShortTermHistory --> EventFiltering
+    ContextSynthesis --> MemoryManager
+    CondensationTrigger --> ChunkIdentification
+    SummaryStorage --> LongTermStorage
+    
+    %% Microagent integration
+    MicroagentNetwork --> GlobalMicroagents
+    MicroagentNetwork --> RepoMicroagents
+    MicroagentNetwork --> KnowledgeMicroagents
+    WorkspaceContext --> ContextSearch
+    
+    %% Recall process
+    RecallQuery --> MemoryManager
+    ContextSearch --> ShortTermHistory
+    ContextSearch --> LongTermStorage
+    KnowledgeMatching --> WorkspaceContext
+    
+    %% Recursive learning loops
+    RecallDelivery -.->|Usage Patterns| PriorityScoring
+    ContextAssembly -.->|Knowledge Updates| MicroagentNetwork
+    SummaryValidation -.->|Quality Feedback| SummarizationLLM
+    
+    classDef core fill:#e3f2fd
+    classDef shortterm fill:#e8f5e8
+    classDef condensation fill:#fff3e0
+    classDef microagent fill:#f3e5f5
+    classDef recall fill:#ffebee
+    
+    class MemoryManager,ShortTermHistory,LongTermStorage,MemoryCondenser,MicroagentNetwork core
+    class EventFiltering,ContextWindow,TokenLimitCheck,ContextSynthesis,CondensationTrigger shortterm
+    class ChunkIdentification,PriorityScoring,SummarizationLLM,SummaryValidation,SummaryStorage condensation
+    class GlobalMicroagents,RepoMicroagents,KnowledgeMicroagents,RepoInstructions,ProjectContext,DomainKnowledge,WorkspaceContext microagent
+    class RecallQuery,QueryAnalysis,ContextSearch,KnowledgeMatching,ContextAssembly,RecallDelivery recall
+```
+
+## Event Serialization and Storage Architecture
+
+This diagram shows the persistent storage patterns and data consistency mechanisms:
+
+```mermaid
+graph TB
+    subgraph "Event Serialization Layer"
+        direction TB
+        EventObject[Event Object<br/>🎯 In-Memory Event]
+        EventObject --> SerializationEngine[Serialization Engine<br/>⚙️ Data Transformation]
+        SerializationEngine --> EventDictionary[Event Dictionary<br/>📋 Structured Data]
+        EventDictionary --> JSONSerialization[JSON Serialization<br/>📄 Text Format]
+        JSONSerialization --> ValidationLayer[Validation Layer<br/>✓ Schema Check]
+    end
+    
+    subgraph "Storage Management"
+        direction TB
+        FileStore[File Store<br/>📁 Storage Interface]
+        FileStore --> ConversationDir[Conversation Directory<br/>📂 Session Container]
+        ConversationDir --> EventFiles[Event Files<br/>📄 Persisted Events]
+        ConversationDir --> MetadataFiles[Metadata Files<br/>📊 Session Info]
+        ConversationDir --> ConfigFiles[Config Files<br/>⚙️ Settings Data]
+    end
+    
+    subgraph "Event Store Implementation"
+        direction TB
+        EventStore[Event Store<br/>💾 Persistence Layer]
+        EventStore --> MemoryEventStore[Memory Event Store<br/>⚡ In-Memory Cache]
+        EventStore --> FileEventStore[File Event Store<br/>📁 Disk Persistence]
+        EventStore --> AsyncWrapper[Async Wrapper<br/>🔄 Non-blocking I/O]
+        
+        MemoryEventStore --> EventCache[Event Cache<br/>🚀 Fast Access]
+        FileEventStore --> StorageBackend[Storage Backend<br/>💾 File System]
+        AsyncWrapper --> ThreadPool[Thread Pool<br/>⚡ Concurrent Processing]
+    end
+    
+    subgraph "Data Consistency Mechanisms"
+        direction LR
+        TransactionLog[Transaction Log<br/>📝 Change History]
+        CheckpointManager[Checkpoint Manager<br/>📍 State Snapshots]
+        RecoverySystem[Recovery System<br/>🔄 Error Handling]
+        
+        TransactionLog --> EventAudit[Event Audit<br/>📊 Change Tracking]
+        CheckpointManager --> StateSnapshot[State Snapshot<br/>📸 Point-in-time]
+        RecoverySystem --> DataIntegrity[Data Integrity<br/>✓ Consistency Check]
+    end
+    
+    subgraph "Event Retrieval Patterns"
+        direction TB
+        QueryInterface[Query Interface<br/>❓ Search API]
+        QueryInterface --> EventFiltering[Event Filtering<br/>🔍 Criteria Matching]
+        EventFiltering --> RangeQueries[Range Queries<br/>📅 Time-based Search]
+        EventFiltering --> TypeQueries[Type Queries<br/>🏷️ Category Search]
+        EventFiltering --> ContentQueries[Content Queries<br/>📄 Text Search]
+        
+        RangeQueries --> IndexedAccess[Indexed Access<br/>⚡ Fast Retrieval]
+        TypeQueries --> IndexedAccess
+        ContentQueries --> FullTextSearch[Full-text Search<br/>🔍 Content Matching]
+    end
+    
+    %% Storage flow
+    ValidationLayer --> EventStore
+    EventStore --> MemoryEventStore
+    EventStore --> FileEventStore
+    StorageBackend --> ConversationDir
+    
+    %% Consistency mechanisms
+    FileEventStore --> TransactionLog
+    EventStore --> CheckpointManager
+    StorageBackend --> RecoverySystem
+    
+    %% Retrieval flow
+    QueryInterface --> EventStore
+    IndexedAccess --> EventCache
+    FullTextSearch --> EventFiles
+    
+    %% Recursive maintenance
+    EventAudit -.->|Integrity Check| DataIntegrity
+    StateSnapshot -.->|Recovery Data| RecoverySystem
+    DataIntegrity -.->|Validation| ValidationLayer
+    
+    classDef serialization fill:#e3f2fd
+    classDef storage fill:#e8f5e8
+    classDef eventstore fill:#fff3e0
+    classDef consistency fill:#f3e5f5
+    classDef retrieval fill:#ffebee
+    
+    class EventObject,SerializationEngine,EventDictionary,JSONSerialization,ValidationLayer serialization
+    class FileStore,ConversationDir,EventFiles,MetadataFiles,ConfigFiles storage
+    class EventStore,MemoryEventStore,FileEventStore,AsyncWrapper,EventCache,StorageBackend,ThreadPool eventstore
+    class TransactionLog,CheckpointManager,RecoverySystem,EventAudit,StateSnapshot,DataIntegrity consistency
+    class QueryInterface,EventFiltering,RangeQueries,TypeQueries,ContentQueries,IndexedAccess,FullTextSearch retrieval
+```
+
+## Memory Condensation Recursive Algorithms
+
+This sequence diagram shows the recursive memory condensation process:
+
+```mermaid
+sequenceDiagram
+    participant STH as Short-term History
+    participant MC as Memory Condenser
+    participant LLM as Summarization LLM
+    participant LTS as Long-term Storage
+    participant MA as Microagents
+    
+    Note over STH,MA: Memory Pressure Detection
+    STH->>STH: Monitor Token Limit
+    STH->>STH: Detect Context Overflow
+    STH->>MC: Trigger Condensation
+    
+    Note over STH,MA: Recursive Chunk Processing
+    loop For Each Event Chunk
+        MC->>STH: Identify Event Chunk
+        MC->>MC: Assess Chunk Priority
+        MC->>MC: Validate Condensation Need
+        
+        alt High Priority Chunk
+            MC->>LLM: Generate Summary Prompt
+            LLM-->>MC: Summary Response
+            MC->>MC: Validate Summary Quality
+            
+            alt Quality Acceptable
+                MC->>LTS: Store Summary
+                MC->>STH: Replace Chunk with Summary
+            else Quality Issues
+                MC->>LLM: Regenerate Summary
+                Note over MC,LLM: Recursive Quality Improvement
+            end
+            
+        else Low Priority Chunk
+            MC->>LTS: Archive Raw Events
+            MC->>STH: Remove from Active Context
+        end
+    end
+    
+    Note over STH,MA: Knowledge Integration
+    MC->>MA: Update Pattern Knowledge
+    MA->>MA: Learn from Condensation Patterns
+    MA-->>MC: Improved Condensation Strategies
+    
+    Note over STH,MA: Context Validation
+    STH->>STH: Verify Context Coherence
+    STH->>MC: Report Context Quality
+    MC->>MC: Adjust Future Strategies
+    
+    Note over STH,MA: Recursive Learning Loop
+    MC->>MA: Share Condensation Outcomes
+    MA->>MA: Update Knowledge Base
+    MA-->>STH: Enhanced Context Filtering
+```
+
+## Emergent Memory Patterns
+
+This diagram illustrates emergent behavioral patterns in the memory system:
+
+```mermaid
+graph TB
+    subgraph "Pattern Emergence Mechanisms"
+        direction TB
+        UsageTracking[Usage Tracking<br/>📊 Access Patterns]
+        UsageTracking --> PatternDetection[Pattern Detection<br/>🔍 Behavior Analysis]
+        PatternDetection --> PatternClassification[Pattern Classification<br/>🏷️ Category Assignment]
+        PatternClassification --> EmergentBehavior[Emergent Behavior<br/>✨ Adaptive Response]
+    end
+    
+    subgraph "Adaptive Context Strategies"
+        direction LR
+        FrequencyBased[Frequency-based<br/>📈 Access Count Priority]
+        RecencyBased[Recency-based<br/>⏰ Time-weighted Priority]
+        RelevanceBased[Relevance-based<br/>🎯 Context Similarity]
+        ImportanceBased[Importance-based<br/>⭐ Manual/Learned Weight]
+    end
+    
+    subgraph "Cognitive Context Optimization"
+        direction TB
+        ContextPrediction[Context Prediction<br/>🔮 Future Need Forecast]
+        ContextPrediction --> PreemptiveLoading[Preemptive Loading<br/>⚡ Anticipatory Retrieval]
+        PreemptiveLoading --> CacheOptimization[Cache Optimization<br/>🚀 Performance Enhancement]
+        CacheOptimization --> ContextPrediction
+    end
+    
+    subgraph "Self-Organizing Memory"
+        direction TB
+        ClusterFormation[Cluster Formation<br/>🌐 Related Event Grouping]
+        ClusterFormation --> HierarchicalOrganization[Hierarchical Organization<br/>🌳 Nested Structure]
+        HierarchicalOrganization --> SemanticIndexing[Semantic Indexing<br/>🔗 Meaning-based Links]
+        SemanticIndexing --> AdaptiveReorganization[Adaptive Reorganization<br/>🔄 Structure Evolution]
+        AdaptiveReorganization --> ClusterFormation
+    end
+    
+    %% Pattern connections
+    EmergentBehavior --> FrequencyBased
+    EmergentBehavior --> RecencyBased
+    EmergentBehavior --> RelevanceBased
+    EmergentBehavior --> ImportanceBased
+    
+    %% Optimization connections
+    PatternClassification --> ContextPrediction
+    CacheOptimization --> UsageTracking
+    
+    %% Self-organization connections
+    FrequencyBased --> ClusterFormation
+    RelevanceBased --> SemanticIndexing
+    
+    %% Recursive improvement
+    AdaptiveReorganization -.->|Structure Feedback| PatternDetection
+    PreemptiveLoading -.->|Prediction Accuracy| ContextPrediction
+    SemanticIndexing -.->|Semantic Patterns| PatternClassification
+    
+    classDef emergence fill:#e3f2fd
+    classDef strategies fill:#e8f5e8
+    classDef optimization fill:#fff3e0
+    classDef organization fill:#f3e5f5
+    
+    class UsageTracking,PatternDetection,PatternClassification,EmergentBehavior emergence
+    class FrequencyBased,RecencyBased,RelevanceBased,ImportanceBased strategies
+    class ContextPrediction,PreemptiveLoading,CacheOptimization optimization
+    class ClusterFormation,HierarchicalOrganization,SemanticIndexing,AdaptiveReorganization organization
+```
+
+---
+
+## Technical Implementation Notes
+
+### Recursive Event Processing
+- Events trigger cascading actions through the EventStream, creating recursive behavioral loops
+- Each event can spawn multiple child events, forming tree-like execution patterns
+- Feedback loops ensure system-wide consistency and adaptive behavior
+
+### Memory Condensation Algorithms
+- Recursive summarization maintains context while reducing memory pressure
+- Hierarchical compression preserves important details at multiple granularity levels
+- Quality validation ensures summary fidelity through recursive improvement
+
+### Emergent Pattern Recognition
+- Usage patterns emerge from the interaction of individual access behaviors
+- The system self-organizes based on discovered access patterns
+- Adaptive strategies evolve based on performance feedback
+
+### Distributed Cognitive Processing
+- Memory components collaborate to maintain coherent system-wide context
+- Microagents provide specialized knowledge that enhances memory retrieval
+- Cross-component learning improves overall system intelligence over time

@@ -2,66 +2,335 @@
 title: Runtime Architecture
 ---
 
-The OpenHands Docker Runtime is the core component that enables secure and flexible execution of AI agent's action.
-It creates a sandboxed environment using Docker, where arbitrary code can be run safely without risking the host system.
+---
+title: Runtime Architecture
+---
 
-## Why do we need a sandboxed runtime?
+# Runtime Architecture
+
+The OpenHands Runtime system provides a comprehensive execution environment that enables secure, adaptive, and recursive execution patterns for AI agents. This document details the runtime architecture with enhanced cognitive diagrams showing emergent execution behaviors.
+
+## Comprehensive Runtime Overview
+
+For detailed runtime and security architecture with Mermaid diagrams, see:
+- [Runtime and Security Architecture](./runtime-security-architecture.mdx) - Comprehensive security and execution diagrams
+- [Event System and Memory Architecture](./event-memory-architecture.mdx) - Event-driven patterns and memory management
+- [Comprehensive Architecture Overview](./comprehensive-overview.mdx) - System-wide architectural patterns
+
+## Why Do We Need a Sandboxed Runtime?
 
 OpenHands needs to execute arbitrary code in a secure, isolated environment for several reasons:
 
-1. Security: Executing untrusted code can pose significant risks to the host system. A sandboxed environment prevents malicious code from accessing or modifying the host system's resources
-2. Consistency: A sandboxed environment ensures that code execution is consistent across different machines and setups, eliminating "it works on my machine" issues
-3. Resource Control: Sandboxing allows for better control over resource allocation and usage, preventing runaway processes from affecting the host system
-4. Isolation: Different projects or users can work in isolated environments without interfering with each other or the host system
-5. Reproducibility: Sandboxed environments make it easier to reproduce bugs and issues, as the execution environment is consistent and controllable
+1. **Security**: Executing untrusted code can pose significant risks to the host system. A sandboxed environment prevents malicious code from accessing or modifying the host system's resources
+2. **Consistency**: A sandboxed environment ensures that code execution is consistent across different machines and setups, eliminating "it works on my machine" issues
+3. **Resource Control**: Sandboxing allows for better control over resource allocation and usage, preventing runaway processes from affecting the host system
+4. **Isolation**: Different projects or users can work in isolated environments without interfering with each other or the host system
+5. **Reproducibility**: Sandboxed environments make it easier to reproduce bugs and issues, as the execution environment is consistent and controllable
 
-## How does the Runtime work?
+## Enhanced Runtime Architecture with Cognitive Patterns
 
-The OpenHands Runtime system uses a client-server architecture implemented with Docker containers. Here's an overview of how it works:
+The OpenHands Runtime system uses a client-server architecture with recursive feedback loops and emergent behavioral patterns:
 
 ```mermaid
-graph TD
-    A[User-provided Custom Docker Image] --> B[OpenHands Backend]
-    B -->|Builds| C[OH Runtime Image]
-    C -->|Launches| D[Action Executor]
-    D -->|Initializes| E[Browser]
-    D -->|Initializes| F[Bash Shell]
-    D -->|Initializes| G[Plugins]
-    G -->|Initializes| L[Jupyter Server]
-
-    B -->|Spawn| H[Agent]
-    B -->|Spawn| I[EventStream]
-    I <--->|Execute Action to
-    Get Observation
-    via REST API
-    | D
-
-    H -->|Generate Action| I
-    I -->|Obtain Observation| H
-
-    subgraph "Docker Container"
-    D
-    E
-    F
-    G
-    L
+graph TB
+    subgraph "User Input Layer"
+        direction LR
+        UserImage[User Docker Image<br/>🏗️ Custom Base Environment]
+        UserConfig[User Configuration<br/>⚙️ Runtime Settings]
+        UserPlugins[User Plugins<br/>🔌 Custom Extensions]
     end
+    
+    subgraph "OpenHands Backend Orchestration"
+        direction TB
+        Backend[OpenHands Backend<br/>🧠 Cognitive Coordinator]
+        Backend --> ImageBuilder[Image Builder<br/>🏭 Runtime Construction]
+        Backend --> RuntimeManager[Runtime Manager<br/>🎯 Execution Orchestration]
+        Backend --> EventStream[EventStream<br/>⚡ Neural Communication]
+        Backend --> AgentController[Agent Controller<br/>🤖 Decision Engine]
+    end
+    
+    subgraph "Runtime Image Construction"
+        direction TB
+        ImageBuilder --> TagSystem[Tag System<br/>🏷️ Version Management]
+        TagSystem --> SourceTag[Source Tag<br/>📝 Code Hash]
+        TagSystem --> LockTag[Lock Tag<br/>🔒 Dependency Hash]
+        TagSystem --> VersionTag[Version Tag<br/>📊 Release Hash]
+        
+        ImageBuilder --> RuntimeImage[OH Runtime Image<br/>📦 Executable Container]
+        RuntimeImage --> ActionExecutor[Action Executor<br/>⚡ Command Processor]
+    end
+    
+    subgraph "Containerized Execution Environment"
+        direction TB
+        Container[Docker Container<br/>🐳 Isolated Environment]
+        Container --> ExecutionContext[Execution Context<br/>🏠 Runtime Environment]
+        ExecutionContext --> BashShell[Bash Shell<br/>💻 Terminal Interface]
+        ExecutionContext --> FileSystem[File System<br/>📁 Storage Access]
+        ExecutionContext --> NetworkStack[Network Stack<br/>🌐 Connectivity]
+        ExecutionContext --> PluginSystem[Plugin System<br/>🔌 Extensibility]
+        
+        PluginSystem --> JupyterServer[Jupyter Server<br/>📊 Python Execution]
+        PluginSystem --> BrowserController[Browser Controller<br/>🌐 Web Automation]
+        PluginSystem --> CustomPlugins[Custom Plugins<br/>🛠️ User Extensions]
+    end
+    
+    subgraph "Communication and Feedback Loops"
+        direction LR
+        RestAPI[REST API<br/>🔗 Communication Protocol]
+        ActionFlow[Action Flow<br/>➡️ Command Execution]
+        ObservationFlow[Observation Flow<br/>⬅️ Result Feedback]
+        StateManagement[State Management<br/>💾 Context Persistence]
+    end
+    
+    %% Construction flow
+    UserImage --> ImageBuilder
+    UserConfig --> RuntimeManager
+    UserPlugins --> PluginSystem
+    
+    %% Runtime deployment
+    RuntimeImage --> Container
+    RuntimeManager --> ActionExecutor
+    
+    %% Communication patterns
+    EventStream --> RestAPI
+    ActionExecutor --> RestAPI
+    RestAPI --> ActionFlow
+    ActionFlow --> ExecutionContext
+    ExecutionContext --> ObservationFlow
+    ObservationFlow --> RestAPI
+    RestAPI --> EventStream
+    
+    %% Agent interaction
+    AgentController --> EventStream
+    EventStream --> AgentController
+    
+    %% Recursive feedback
+    ObservationFlow -.->|Learning Data| RuntimeManager
+    StateManagement -.->|Context Updates| AgentController
+    ActionExecutor -.->|Performance Metrics| ImageBuilder
+    
+    classDef input fill:#e3f2fd
+    classDef backend fill:#e8f5e8
+    classDef construction fill:#fff3e0
+    classDef container fill:#f3e5f5
+    classDef communication fill:#ffebee
+    
+    class UserImage,UserConfig,UserPlugins input
+    class Backend,ImageBuilder,RuntimeManager,EventStream,AgentController backend
+    class TagSystem,SourceTag,LockTag,VersionTag,RuntimeImage,ActionExecutor construction
+    class Container,ExecutionContext,BashShell,FileSystem,NetworkStack,PluginSystem,JupyterServer,BrowserController,CustomPlugins container
+    class RestAPI,ActionFlow,ObservationFlow,StateManagement communication
 ```
 
-1. User Input: The user provides a custom base Docker image
-2. Image Building: OpenHands builds a new Docker image (the "OH runtime image") based on the user-provided image. This new image includes OpenHands-specific code, primarily the "runtime client"
-3. Container Launch: When OpenHands starts, it launches a Docker container using the OH runtime image
-4. Action Execution Server Initialization: The action execution server initializes an `ActionExecutor` inside the container, setting up necessary components like a bash shell and loading any specified plugins
-5. Communication: The OpenHands backend (`openhands/runtime/impl/eventstream/eventstream_runtime.py`) communicates with the action execution server over RESTful API, sending actions and receiving observations
-6. Action Execution: The runtime client receives actions from the backend, executes them in the sandboxed environment, and sends back observations
-7. Observation Return: The action execution server sends execution results back to the OpenHands backend as observations
+## Runtime Cognitive Execution Flow
 
-The role of the client:
+This diagram shows the recursive execution patterns and emergent behaviors in the runtime system:
 
-- It acts as an intermediary between the OpenHands backend and the sandboxed environment
-- It executes various types of actions (shell commands, file operations, Python code, etc.) safely within the container
-- It manages the state of the sandboxed environment, including the current working directory and loaded plugins
-- It formats and returns observations to the backend, ensuring a consistent interface for processing results
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant B as Backend
+    participant IB as Image Builder
+    participant RM as Runtime Manager
+    participant AE as Action Executor
+    participant ES as Execution Environment
+    participant PS as Plugin System
+    
+    Note over U,PS: Cognitive Runtime Initialization
+    U->>B: Provide Custom Image & Config
+    B->>IB: Request Runtime Image Build
+    IB->>IB: Check Existing Tags (Source/Lock/Version)
+    
+    alt Source Tag Exists
+        IB-->>B: Use Existing Image (No Build)
+    else Lock Tag Exists
+        IB->>IB: Fast Build (Copy Source Only)
+        IB-->>B: Return Updated Image
+    else Version Tag Exists
+        IB->>IB: Medium Build (Install Dependencies)
+        IB-->>B: Return New Image
+    else No Tags Exist
+        IB->>IB: Full Build (Complete Reconstruction)
+        IB-->>B: Return Fresh Image
+    end
+    
+    B->>RM: Initialize Runtime with Image
+    RM->>AE: Launch Action Executor Container
+    AE->>ES: Initialize Execution Environment
+    ES->>PS: Load and Initialize Plugins
+    PS-->>ES: Plugins Ready
+    ES-->>AE: Environment Ready
+    AE-->>RM: Runtime Ready
+    RM-->>B: Runtime Operational
+    
+    Note over U,PS: Recursive Action-Observation Loop
+    loop Agent Execution Cycle
+        B->>AE: Send Action via REST API
+        AE->>AE: Validate Action Security
+        AE->>ES: Execute in Sandbox Environment
+        
+        alt Bash Command
+            ES->>ES: Execute in Bash Shell
+        else File Operation
+            ES->>ES: Perform File System Operation
+        else Plugin Operation
+            ES->>PS: Route to Appropriate Plugin
+            PS->>PS: Execute Plugin-specific Logic
+            PS-->>ES: Plugin Result
+        end
+        
+        ES-->>AE: Execution Result
+        AE->>AE: Format Observation
+        AE-->>B: Return Observation via REST API
+        B->>B: Process Observation
+        
+        Note over B,PS: Adaptive Learning Integration
+        B->>B: Update Agent State
+        B->>B: Learn from Execution Patterns
+    end
+    
+    Note over U,PS: Runtime State Management
+    AE->>AE: Maintain Environment State
+    ES->>ES: Preserve Working Directory
+    PS->>PS: Maintain Plugin State
+    
+    Note over U,PS: Resource Management & Cleanup
+    RM->>AE: Monitor Resource Usage
+    AE-->>RM: Report Health Status
+    RM->>RM: Optimize Resource Allocation
+```
+
+## How the Runtime Works
+
+The OpenHands Runtime system implements a sophisticated execution environment with the following key components:
+
+1. **User Input Processing**: The user provides a custom base Docker image, configuration settings, and optional plugins
+2. **Intelligent Image Building**: OpenHands builds a new Docker image (the "OH runtime image") using a smart tagging system that optimizes build times through incremental updates
+3. **Container Orchestration**: The runtime manager launches a Docker container using the OH runtime image with proper resource allocation and security constraints
+4. **Action Execution Server**: The action execution server initializes an `ActionExecutor` inside the container, setting up components like bash shell, file system access, and plugin integration
+5. **Bi-directional Communication**: The OpenHands backend communicates with the action execution server over RESTful API, enabling real-time action dispatch and observation collection
+6. **Recursive Execution Patterns**: The runtime client receives actions, executes them in the sandboxed environment, and sends back observations, creating feedback loops for continuous learning
+7. **State Persistence**: The execution environment maintains state across actions, preserving context and enabling complex multi-step operations
+
+### The Role of the Action Executor
+
+The action executor serves as the cognitive interface between the OpenHands backend and the sandboxed environment:
+
+- **Security Gateway**: It validates and sanitizes all incoming actions before execution
+- **Environment Manager**: It maintains the state of the sandboxed environment, including working directory, environment variables, and loaded plugins
+- **Execution Coordinator**: It routes different types of actions (shell commands, file operations, Python code, etc.) to appropriate execution contexts
+- **Observation Formatter**: It processes execution results and formats them as structured observations for the backend
+- **Adaptive Interface**: It learns from execution patterns to optimize future operations
+
+## Image Building and Management System
+
+OpenHands' approach to building and managing runtime images ensures efficiency, consistency, and flexibility through a sophisticated three-tier tagging system.
+
+### Intelligent Image Tagging System
+
+OpenHands uses a three-tag system for runtime images that balances reproducibility with build efficiency:
+
+- **Source Tag**: `oh_v{version}_{lock_hash}_{source_hash}` - Most specific, includes source code hash
+- **Lock Tag**: `oh_v{version}_{lock_hash}` - Dependency-specific, includes pyproject.toml and poetry.lock
+- **Versioned Tag**: `oh_v{version}_{base_image}` - Most generic, base image and version only
+
+### Adaptive Build Process
+
+The build system implements recursive optimization patterns:
+
+1. **No Rebuild**: Check for existing source tag (fastest)
+2. **Incremental Build**: Use lock tag and copy source only (fast)
+3. **Dependency Build**: Use versioned tag and install dependencies (medium)
+4. **Full Build**: Complete reconstruction from base image (slowest)
+
+This approach creates emergent build optimization where the system learns from previous builds to minimize reconstruction time.
+
+## Runtime Plugin System Architecture
+
+The plugin system enables extensible functionality through a recursive loading and initialization pattern:
+
+```mermaid
+graph TB
+    subgraph "Plugin Architecture"
+        direction TB
+        PluginRegistry[Plugin Registry<br/>📋 Available Plugins]
+        PluginRegistry --> BasePlugin[Base Plugin Class<br/>🏗️ Plugin Interface]
+        BasePlugin --> JupyterPlugin[Jupyter Plugin<br/>📊 Python Execution]
+        BasePlugin --> BrowserPlugin[Browser Plugin<br/>🌐 Web Automation]
+        BasePlugin --> CustomPlugin[Custom Plugins<br/>🛠️ User Extensions]
+    end
+    
+    subgraph "Plugin Lifecycle"
+        direction TB
+        PluginSpec[Plugin Specification<br/>📝 Requirements Definition]
+        PluginSpec --> PluginLoading[Plugin Loading<br/>📦 Module Import]
+        PluginLoading --> PluginInit[Plugin Initialization<br/>🚀 Async Setup]
+        PluginInit --> PluginReady[Plugin Ready<br/>✅ Available for Use]
+        PluginReady --> PluginExecution[Plugin Execution<br/>⚡ Action Processing]
+        PluginExecution --> PluginMaintenance[Plugin Maintenance<br/>🔄 State Management]
+        PluginMaintenance --> PluginExecution
+    end
+    
+    subgraph "Plugin Integration Patterns"
+        direction LR
+        ActionRouting[Action Routing<br/>🎯 Plugin Selection]
+        ContextSharing[Context Sharing<br/>🤝 State Exchange]
+        ResultAggregation[Result Aggregation<br/>📊 Output Combination]
+        ErrorHandling[Error Handling<br/>⚠️ Exception Management]
+    end
+    
+    %% Plugin system connections
+    PluginRegistry --> PluginSpec
+    PluginInit --> JupyterPlugin
+    PluginInit --> BrowserPlugin
+    PluginInit --> CustomPlugin
+    
+    PluginExecution --> ActionRouting
+    PluginExecution --> ContextSharing
+    PluginExecution --> ResultAggregation
+    PluginExecution --> ErrorHandling
+    
+    %% Recursive improvement
+    PluginMaintenance -.->|Usage Patterns| PluginRegistry
+    ErrorHandling -.->|Error Patterns| PluginInit
+    ResultAggregation -.->|Performance Data| ActionRouting
+    
+    classDef architecture fill:#e3f2fd
+    classDef lifecycle fill:#e8f5e8
+    classDef integration fill:#fff3e0
+    
+    class PluginRegistry,BasePlugin,JupyterPlugin,BrowserPlugin,CustomPlugin architecture
+    class PluginSpec,PluginLoading,PluginInit,PluginReady,PluginExecution,PluginMaintenance lifecycle
+    class ActionRouting,ContextSharing,ResultAggregation,ErrorHandling integration
+```
+
+### Key Plugin System Features
+
+1. **Plugin Definition**: Plugins inherit from a base `Plugin` class, ensuring consistent interfaces
+2. **Dynamic Registration**: Available plugins are registered in an `ALL_PLUGINS` dictionary for discovery
+3. **Flexible Specification**: Users specify plugins through `Agent.sandbox_plugins: list[PluginRequirement]`
+4. **Asynchronous Initialization**: Plugins initialize concurrently during runtime startup
+5. **Extensible Architecture**: The system supports custom plugins for domain-specific functionality
+6. **Recursive State Management**: Plugins maintain state across action executions, enabling complex workflows
+
+---
+
+## Technical Implementation Highlights
+
+### Cognitive Runtime Patterns
+- The runtime implements recursive execution loops where each action-observation cycle informs subsequent operations
+- Emergent behaviors arise from the interaction between plugins, execution environment, and agent decision-making
+- Adaptive resource management optimizes performance based on execution patterns
+
+### Security-First Architecture
+- Multi-layered security validation ensures safe execution of arbitrary code
+- Container isolation provides strong security boundaries
+- Plugin system maintains security contexts for external integrations
+
+### Distributed Cognition
+- Runtime components collaborate to maintain system-wide execution context
+- Event-driven communication enables real-time coordination between backend and execution environment
+- Adaptive learning improves runtime performance and reliability over time
 
 ## How OpenHands builds and maintains OH Runtime images
 
